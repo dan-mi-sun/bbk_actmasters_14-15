@@ -48,6 +48,6 @@ f.each_line do |line|
   h_array.each { |pairs|
     key = pairs[0]
     value =  pairs[1]
-    puts key + "\t" + value.to_s + "\n"
+    puts key + "\t" + value.to_s
   }
 end

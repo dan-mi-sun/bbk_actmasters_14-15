@@ -22,8 +22,6 @@ f.each_line do |line|
     if i == (word_array.size) -1 
       print h
     else
-      #change word to lower case
-      word = word.downcase
       #assign neighbour
       neighbour = word_array[i + 1] 
       #if hash has word key

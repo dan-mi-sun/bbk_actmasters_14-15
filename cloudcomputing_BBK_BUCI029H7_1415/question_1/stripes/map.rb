@@ -2,20 +2,24 @@ require 'pry-byebug'
 # Ruby code for Stripes method map.rb
 #
 
-#Read in each line of text.
-ARGF.each do |line|
+#Read in text.
+ARGF.each do |text|
 
   #Test code locally
-  # f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/simple-words-test.txt", "r")
+  # f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/simple-paragraph-test.txt", "r")
 
-  #0.Split paragraph into lines 
-  # f.each_line do |line|
+  #0.Split text into lines 
+  # f.each_line do |text|
   #Create Associative Array
   h = {}
-  #remove new line character
-  line = line.chomp
-  #split line into array of lower cased words
-  word_array = line.split(' ').map!{ |w| w.downcase}
+  #split text into paragraphs
+  paragraph = text.split("\n").map!{ |w| w.downcase}
+  #remove non-alphanumeric characters and create a word array
+  if paragraph.size == 0 
+    word_array = ['']
+  else
+    word_array = paragraph[0].gsub!(/[^0-9a-z ]/i, '').split(' ')
+  end
   #iterate over array of words
   word_array.each_with_index {|word, i|
     #check to see if we should duck out the interation and return the associative hash

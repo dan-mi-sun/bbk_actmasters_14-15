@@ -44,4 +44,12 @@ f.each_line do |line|
   }
   #output to STDOUT
   #<key><tab><value><newline>
+  #puts key + "\t" + value.to_s
+  binding.pry
+  h.to_a.each_with_index { |pairs, i|
+    binding.pry
+    puts pairs
+    puts i
+  }
+  puts h 
 end

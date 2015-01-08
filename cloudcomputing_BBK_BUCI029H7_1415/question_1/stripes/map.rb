@@ -10,6 +10,7 @@ ARGF.each do |text|
 
   #0.Split text into lines 
   # f.each_line do |text|
+  
   #Create Associative Array
   #
   h = {}

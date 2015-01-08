@@ -3,13 +3,13 @@ require 'pry-byebug'
 #
 
 #Read in each line of text.
-# ARGF.each do |line|
-#
-#Test code locally
-f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/simple-words-test.txt", "r")
+ARGF.each do |line|
 
-#0.Split paragraph into lines 
-f.each_line do |line|
+  #Test code locally
+  # f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/simple-words-test.txt", "r")
+
+  #0.Split paragraph into lines 
+  # f.each_line do |line|
   #Create Associative Array
   h = {}
   #remove new line character
@@ -20,7 +20,7 @@ f.each_line do |line|
   word_array.each_with_index {|word, i|
     #check to see if we should duck out the interation and return the associative hash
     if i == (word_array.size) -1 
-      print h
+      break
     else
       #assign neighbour
       neighbour = word_array[i + 1] 

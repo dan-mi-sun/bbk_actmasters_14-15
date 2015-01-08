@@ -14,8 +14,8 @@ f.each_line do |line|
   h = {}
   #remove new line character
   line = line.chomp
-  #split line into array of words
-  word_array = line.split(' ')
+  #split line into array of lower cased words
+  word_array = line.split(' ').map!{ |w| w.downcase}
   #iterate over array of words
   word_array.each_with_index {|word, i|
     #check to see if we should duck out the interation and return the associative hash
@@ -34,9 +34,9 @@ f.each_line do |line|
           v = h[word][neighbour] 
           #add 1 to neighbour count
           h[word] = {neighbour => (v + 1) } 
-          #else add neighbour key & set count at 1
+          #else append neighbour key & set count at 1
         else 
-          h[word] = {neighbour => 1}
+          h[word].merge!(neighbour => 1)
         end
         #else add word with {} && add neighbour key && set count at 1
       else 
@@ -44,4 +44,6 @@ f.each_line do |line|
       end
     end
   }
+  #output to STDOUT
+  #<key><tab><value><newline>
 end

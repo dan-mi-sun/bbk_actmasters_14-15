@@ -1,0 +1,4 @@
+second	{"paragraph"=>2}
+paragraph	{"second"=>1}
+second	{"paragraph"=>2}
+paragraph	{"second"=>1}

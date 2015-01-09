@@ -4,40 +4,49 @@ require 'pry-byebug'
 
 #
 #Test code locally
- f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/reduce-input.txt", "r")
+f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/reduce-input-sorted.txt", "r")
 
 prev_key = nil
 key_total = 0
-f.each_line do |line|
-  binding.pry
+#create data structure within which to do internal corresponding value addition
+#
+merging_container = {}
 
-#Read in each line of text.
-# ARGF.each do |line|
+f.each_line do |line|
+  #Read in each line of text.
+  # ARGF.each do |line|
+
   # remove any newline
   line = line.chomp
 
   # split key and value on tab character
   (key, value) = line.split(/\t/)
 
-  # check for new key
-  if prev_key && key != prev_key && key_total > 0
+  puts "This is key #{key}"
+  puts "This is value #{value}"
 
-    # output total for previous key
+  #remove non-alphanumeric chars from value string and turn into array
+  a = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
 
-    # <key><tab><value><newline>
-    puts prev_key + "\t" + key_total.to_s
+  #turn values array into a hash of key value pairs
+  h = Hash[a.each_slice(2).to_a]
+  puts "This is h #{h}"
 
-    # reset key total for new key
-    prev_key = key
-    key_total = 0
+  #add key value pairs to data structure
+  h.each do |key, value|
 
-  elsif ! prev_key
-    prev_key = key
+    if merging_container.has_key?(key)
+      #find out the total of the value & add currency value to it
+      merging_container[key] = merging_container[key].to_i + value.to_i
+    else
+      merging_container[key] = value
+    end
 
+    puts "This is merging container #{merging_container}"
+    puts "#{'-' *30}"
   end
 
-  # add to count for this current key
-  key_total += value.to_i
+
 end
 
 

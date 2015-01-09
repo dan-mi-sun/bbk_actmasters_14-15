@@ -16,13 +16,13 @@ f.each_line do |line|
 
   # remove any newline
   line = line.chomp
-  puts "this is the line: #{line}"
+  # puts "this is the line: #{line}"
 
   # split key and value on tab character
   (key, value) = line.split(/\t/)
 
-  puts "This is key #{key}"
-  puts "This is value #{value}"
+  # puts "This is key #{key}"
+  # puts "This is value #{value}"
 
   #remove non-alphanumeric chars from value string and turn into array
   a = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
@@ -33,8 +33,8 @@ f.each_line do |line|
   #if the key already exists then append
   #
   if merging_container.has_key?(key)
-    puts "HELLO"
-    puts "this is the key: #{key}"
+    # puts "HELLO"
+    # puts "this is the key: #{key}"
 
     #set top level key for use within inner hash loop
     _key = key
@@ -42,17 +42,17 @@ f.each_line do |line|
     #look to see if the h contains an existing inner key with an additional value 
     #
     h.each do |key, value|
-      puts "WHY HELLO"
-      puts "this is the key:#{key}"
-      puts "this is the _key:#{_key}"
-      puts "this is the value:#{value}"
+      # puts "WHY HELLO"
+      # puts "this is the key:#{key}"
+      # puts "this is the _key:#{_key}"
+      # puts "this is the value:#{value}"
 
       if merging_container[_key].has_key?(key)
-        puts "WHY WHY HELLO"
+        # puts "WHY WHY HELLO"
         #if key exists in inner hash then add the value to the existing entry within the merging container
         merging_container[_key][key] =  merging_container[_key].values.first.to_i + value.to_i
-        puts "This is merging container #{merging_container}"
-        puts "#{'-' *30}"
+        # puts "This is merging container #{merging_container}"
+        # puts "#{'-' *30}"
 
       else
 
@@ -63,18 +63,18 @@ f.each_line do |line|
     #if the key does not already exist then make new entry
     #add key and values to merging container
     #
-    puts "HELLO ELSE"
-    puts "This is h #{h}"
+    # puts "HELLO ELSE"
+    # puts "This is h #{h}"
 
     #set top level key for use within inner hash loop
     _key = key
 
     #add key value pairs to data structure
     h.each do |key, value|
-      puts "WHY HELLO"
-      puts "this is the key:#{key}"
-      puts "this is the _key:#{_key}"
-      puts "this is the value:#{value}"
+      # puts "WHY HELLO"
+      # puts "this is the key:#{key}"
+      # puts "this is the _key:#{_key}"
+      # puts "this is the value:#{value}"
       #add top level key to merging container
       #
       merging_container[_key] = {}
@@ -83,8 +83,28 @@ f.each_line do |line|
       #
       merging_container[_key].merge!(key => value)
 
-      puts "This is merging container #{merging_container}"
-      puts "#{'-' *30}"
+      # puts "This is merging container #{merging_container}"
+      # puts "#{'-' *30}"
     end
   end
 end
+
+  #calculate the conditional probability that a word w′ occurs immediately after another word w, i.e.,
+  #Pr[w′|w] = count(w, w′)/count(w)
+  #for each two-word-sequence (w,w′)
+  
+  #find total # of times w appears
+  #need to climb through hash map and find all occurences
+  puts "this is the MC: #{merging_container}"
+  merging_container.each do |key, value|
+    puts "this is the key: #{key}"
+    value.each do |k, v|
+      puts "this is k: #{k}"
+      puts "this is v: #{v}"
+    end
+  end
+  
+  #find the top key which matches w
+  #find all the values for occurances AFTER w
+  #recurse through inner hash map and output value and their total number
+  # then calculate count(w, w')/count(w)

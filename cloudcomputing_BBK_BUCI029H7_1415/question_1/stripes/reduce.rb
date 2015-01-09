@@ -6,7 +6,6 @@ require 'pry-byebug'
 #Test code locally
 f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/reduce-input-sorted.txt", "r")
 
-prev_key = nil
 #create data structure within which to do internal corresponding value addition
 #
 merging_container = {}
@@ -17,6 +16,7 @@ f.each_line do |line|
 
   # remove any newline
   line = line.chomp
+  puts "this is the line: #{line}"
 
   # split key and value on tab character
   (key, value) = line.split(/\t/)
@@ -32,28 +32,59 @@ f.each_line do |line|
 
   #if the key already exists then append
   #
-  if merging_container.has_key?(key)   #<------------------ figure out this
-    binding.pry
+  if merging_container.has_key?(key)
+    puts "HELLO"
+    puts "this is the key: #{key}"
+
+    #set top level key for use within inner hash loop
+    _key = key
+
+    #look to see if the h contains an existing inner key with an additional value 
+    #
+    h.each do |key, value|
+      puts "WHY HELLO"
+      puts "this is the key:#{key}"
+      puts "this is the _key:#{_key}"
+      puts "this is the value:#{value}"
+
+      if merging_container[_key].has_key?(key)
+        puts "WHY WHY HELLO"
+        #if key exists in inner hash then add the value to the existing entry within the merging container
+        merging_container[_key][key] =  merging_container[_key].values.first.to_i + value.to_i
+        puts "This is merging container #{merging_container}"
+        puts "#{'-' *30}"
+
+      else
+
+      end
+    end
 
   else
     #if the key does not already exist then make new entry
     #add key and values to merging container
     #
-    merging_container[key] = h
-  end
-  puts "This is h #{h}"
+    puts "HELLO ELSE"
+    puts "This is h #{h}"
 
-  #add key value pairs to data structure
-  h.each do |key, value|
-    #find out if inner key exists
-    if merging_container.has_key?(key)
-      #find out the total of the value & add currency value to it
-      merging_container[key] = merging_container[key].to_i + value.to_i
-    else
-      merging_container[key] = value
+    #set top level key for use within inner hash loop
+    _key = key
+
+    #add key value pairs to data structure
+    h.each do |key, value|
+      puts "WHY HELLO"
+      puts "this is the key:#{key}"
+      puts "this is the _key:#{_key}"
+      puts "this is the value:#{value}"
+      #add top level key to merging container
+      #
+      merging_container[_key] = {}
+
+      #add inner key and value to top level key
+      #
+      merging_container[_key].merge!(key => value)
+
+      puts "This is merging container #{merging_container}"
+      puts "#{'-' *30}"
     end
-
-    puts "This is merging container #{merging_container}"
-    puts "#{'-' *30}"
   end
 end

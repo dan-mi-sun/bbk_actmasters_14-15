@@ -1,18 +1,20 @@
 require 'pry-byebug'
+# require './word_count/word_count'
+
 # Ruby code for Stripes method reduce.rb
 #
 
 #
 #Test code locally
-f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/reduce-input-sorted.txt", "r")
+# f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/output.txt", "r")
 
 #create data structure within which to do internal corresponding value addition
 #
 merging_container = {}
 
-f.each_line do |line|
-  #Read in each line of text.
-  # ARGF.each do |line|
+# f.each_line do |line|
+#Read in each line of text.
+ARGF.each do |line|
 
   # remove any newline
   line = line.chomp
@@ -77,11 +79,14 @@ f.each_line do |line|
       # puts "this is the value:#{value}"
       #add top level key to merging container
       #
-      merging_container[_key] = {}
+      merging_container[_key] ||= {}
+      # merging_container[_key] = Hash.new { |k, v| k[v] = {} }
+      # if merging_container[_key].nil? ? (Hash.new { |k, v| k[v] = {} }) : merging_container[_key].merge!(key => value) end
 
       #add inner key and value to top level key
       #
       merging_container[_key].merge!(key => value)
+      # merging_container[_key][key] = value
 
       # puts "This is merging container #{merging_container}"
       # puts "#{'-' *30}"
@@ -89,22 +94,35 @@ f.each_line do |line|
   end
 end
 
-  #calculate the conditional probability that a word w′ occurs immediately after another word w, i.e.,
-  #Pr[w′|w] = count(w, w′)/count(w)
-  #for each two-word-sequence (w,w′)
-  
-  #find total # of times w appears
-  #need to climb through hash map and find all occurences
-  puts "this is the MC: #{merging_container}"
-  merging_container.each do |key, value|
-    puts "this is the key: #{key}"
-    value.each do |k, v|
-      puts "this is k: #{k}"
-      puts "this is v: #{v}"
-    end
+#calculate the conditional probability that a word w′ occurs immediately after another word w, i.e.,
+#Pr[w′|w] = count(w, w′)/count(w)
+#for each two-word-sequence (w,w′)
+
+#find total # of times w appears
+#need to climb through hash map and find all occurences
+#data structure for counting total number of w
+# w_count = {}
+# puts "this is the MC: #{merging_container}"
+merging_container.each do |key, value|
+  # if key == "1500"
+  # puts "#{key} is followed by:"
+  _key = key
+  value.each do |k, v|
+    puts _key + "\t" + k + "\t" + v.to_s
   end
-  
-  #find the top key which matches w
-  #find all the values for occurances AFTER w
-  #recurse through inner hash map and output value and their total number
-  # then calculate count(w, w')/count(w)
+  # else
+  #   break
+  # end
+end
+#
+# f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/reduce-input-sorted.txt", "r")
+#   f.each_line do |line|
+#   phrase = Phrase.new(line)
+#   puts "this is p_wc: #{phrase.word_count}"
+#   end
+# end
+
+#find the top key which matches w
+#find all the values for occurances AFTER w
+#recurse through inner hash map and output value and their total number
+# then calculate count(w, w')/count(w)

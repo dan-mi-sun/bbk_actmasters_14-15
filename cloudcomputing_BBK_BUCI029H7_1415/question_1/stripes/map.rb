@@ -1,21 +1,21 @@
- require 'pry-byebug'
+require 'pry-byebug'
 # Ruby code for Stripes method map.rb
 #
 
 #Read in text.
 # ARGF.each do |text|
- # as paragraphs and replace new line characters with " "
-  paragraphs = ARGF.each("\r\n\r\n").map{|p| p.gsub("\r\n"," ")}
+# as paragraphs and replace new line characters with " "
+paragraphs = ARGF.each("\r\n\r\n").map{|p| p.gsub("\r\n"," ")}
 
-  #iterate throug the paragraphs
-  paragraphs.each do |text|
+#iterate throug the paragraphs
+paragraphs.each do |text|
 
   #Test code locally
   # f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/jane-test.txt")
 
   #0.Split text into lines 
   # f.each_line do |text|
-  
+
   #Create Associative Array
   #
   h = {}
@@ -74,4 +74,4 @@
     value =  pairs[1]
     puts key + "\t" + value.to_s
   }
-  end
+end

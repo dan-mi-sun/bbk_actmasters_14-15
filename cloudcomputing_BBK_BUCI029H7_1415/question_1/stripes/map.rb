@@ -21,9 +21,22 @@ paragraphs.each do |text|
   h = {}
   #split text into paragraphs and convert all words to lowercase
   #
-  paragraph = text.gsub!(/[^0-9a-z ]/i, '').split(" ").map!{ |w| w.downcase}
+  # paragraph = text.gsub!(/[^0-9a-z ]/i, '').split(" ").map!{ |w| w.downcase}
   #remove non-alphanumeric characters and create a word array
   #
+  begin
+  words = text.gsub!(/[^0-9a-z ]/i, ' ')
+  rescue NoMethodError => ex
+    print "Exception: #{ex} hit on the following words: "
+    splitted = words.split(" ")
+  rescue NoMethodError => ex
+    print "Exception: #{ex} hit on the following words: "
+  paragraph = splitted.map!{ |w| w.downcase}
+  rescue NoMethodError => ex
+    print "Exception: #{ex} hit on the following words: "
+  else 
+  end
+
   if paragraph.size == 0 
     word_array = ['']
   else

@@ -8,11 +8,11 @@ require 'pry-byebug'
 # paragraphs = ARGF.each("\r\n\r\n").map{|p| p.gsub("\r\n"," ")}
 begin
 paragraphs = ARGF.each("\r\n\r\n")
-rescue StandardError => e
+rescue NoMethodError => e
   puts "Exception: #{e.message} hit on the following paragraphs: #{paragraphs}"
 end
 
-paragraphs = paragraphs.map{|p| p.gsub("\r\n"," ")}
+paragraphs = paragraphs.map{|p| p.gsub("/\W|\r\n"," ")}
 
 #iterate throug the paragraphs
 paragraphs.each do |text|
@@ -30,22 +30,28 @@ paragraphs.each do |text|
   # paragraph = text.gsub!(/[^0-9a-z ]/i, '').split(" ").map!{ |w| w.downcase}
   #remove non-alphanumeric characters and create a word array
   #
+  
   begin
   words = text.gsub!(/[^0-9a-z ]/i, ' ')
+    # words = text
   rescue NoMethodError => ex
-    puts "Exception: #{ex.message} hit on the following words: #{words}"
+    puts "Exception: #{ex.message} hit on the following words: #{text}"
+    puts "Exception: #{ex.message} hit on the following words: #{text.class}"
+    
   end
 
   begin
     splitted = words.split(" ")
   rescue NoMethodError => ex
-    puts "Exception: #{ex.message} hit on the following words: #{words}"
+    puts "Exception: #{ex.message} hit on the following words: #{text}"
+    puts "Exception: #{ex.message} hit on the following words: #{text.class}"
   end
 
   begin
     paragraph = splitted.map!{ |w| w.downcase}
   rescue NoMethodError => ex
-    puts "Exception: #{ex.message} hit on the following words: #{words}"
+    puts "Exception: #{ex.message} hit on the following words: #{text}"
+    puts "Exception: #{ex.message} hit on the following words: #{text.class}"
   end
 
   if paragraph.size == 0 

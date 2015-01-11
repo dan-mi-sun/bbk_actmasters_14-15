@@ -37,6 +37,7 @@ paragraphs.each do |text|
   end
 
   begin
+    paragraph = splitted.map!{ |w| w.downcase}
   rescue NoMethodError => ex
     puts "Exception: #{ex.message} hit on the following words: #{words}"
   end

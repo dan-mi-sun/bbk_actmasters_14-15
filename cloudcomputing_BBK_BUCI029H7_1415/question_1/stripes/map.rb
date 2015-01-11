@@ -2,11 +2,7 @@ require 'pry-byebug'
 # Ruby code for Stripes method map.rb
 # 
 #Read in text from STDIN and set split point as paragraphs as denoted by newline
-begin
-  paragraphs = ARGF.each("\r\n\r\n")
-rescue NoMethodError => e
-  puts "Exception: #{e.message} hit on the following paragraphs: #{paragraphs}"
-end
+paragraphs = ARGF.each("\r\n\r\n")
 
 #remove non alphanumeric characters and carriage returns at the end of the line
 paragraphs = paragraphs.map{|p| p.gsub("/\W|\r\n"," ")}
@@ -16,29 +12,11 @@ paragraphs.each do |text|
   #Create Associative Array
   associative_map = {}
 
-  #split text into paragraphs and convert all words to lowercase
   #remove non-alphanumeric characters and create a word array
-  #
-  begin
-    words = text.gsub!(/[^0-9a-z ]/i, ' ')
-  rescue NoMethodError => ex
-    puts "Exception: #{ex.message} hit on the following words: #{text}"
-    puts "Exception: #{ex.message} hit on the following words: #{text.class}"
-  end
+  sanitised_paragraph = text.gsub!(/[^0-9a-z ]/i, ' ')
 
-  begin
-    splitted = words.split(" ")
-  rescue NoMethodError => ex
-    puts "Exception: #{ex.message} hit on the following words: #{text}"
-    puts "Exception: #{ex.message} hit on the following words: #{text.class}"
-  end
-
-  begin
-    paragraph = splitted.map!{ |w| w.downcase}
-  rescue NoMethodError => ex
-    puts "Exception: #{ex.message} hit on the following words: #{text}"
-    puts "Exception: #{ex.message} hit on the following words: #{text.class}"
-  end
+  #split text into paragraphs and convert all words to lowercase
+  paragraph = sanitised_paragraph.split(" ").map!{ |w| w.downcase }
 
   if paragraph.size == 0 
     word_array = ['']

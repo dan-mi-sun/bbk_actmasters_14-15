@@ -12,20 +12,19 @@ paragraphs.each do |text|
   #Create Associative Array
   associative_map = {}
 
-  #remove non-alphanumeric characters and create a word array
+  #sanitise paragraph by removing non-alphanumeric characters
   sanitised_paragraph = text.gsub!(/[^0-9a-z ]/i, ' ')
 
-  #split text into paragraphs and convert all words to lowercase
+  #split paragraphs into words and convert to lowercase
   paragraph = sanitised_paragraph.split(" ").map!{ |w| w.downcase }
 
   if paragraph.size == 0 
     word_array = ['']
   else
-    # word_array = paragraph[0].gsub!(/[^0-9a-z ]/i, '')
     word_array = paragraph
   end
-  #iterate over array of words
-  #
+
+  #iterate over words
   word_array.each_with_index {|word, i|
     #check to see if we should duck out the interation and return the associative hash
     #
@@ -35,7 +34,7 @@ paragraphs.each do |text|
       #assign neighbour
       #
       neighbour = word_array[i + 1] 
-      #if hash has word key
+      #if associative map has word key
       #
       if associative_map.has_key?(word) 
         #and if word key has neighbour
@@ -52,13 +51,14 @@ paragraphs.each do |text|
         else 
           associative_map[word].merge!(neighbour => 1)
         end
-        #else add word with {} && add neighbour key && set count at 1
+        #else add word with inner_map && add neighbour key && set value count at 1
         #
       else 
         associative_map[word] = {} && associative_map[word] = {neighbour => 1}
       end
     end
   }
+
   #output to STDOUT
   #<key><tab><value><newline>
   #

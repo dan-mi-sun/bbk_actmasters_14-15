@@ -5,11 +5,17 @@ require 'pry-byebug'
 #Read in text.
 # ARGF.each do |text|
 # as paragraphs and replace new line characters with " "
-paragraphs = ARGF.each("\r\n\r\n").map{|p| p.gsub("\r\n"," ")}
+# paragraphs = ARGF.each("\r\n\r\n").map{|p| p.gsub("\r\n"," ")}
+begin
+paragraphs = ARGF.each("\r\n\r\n")
+rescue StandardError => e
+  puts "Exception: #{e.message} hit on the following paragraphs: #{paragraphs}"
+end
+
+paragraphs = paragraphs.map{|p| p.gsub("\r\n"," ")}
 
 #iterate throug the paragraphs
 paragraphs.each do |text|
-
   #Test code locally
   # f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/jane-test.txt")
 

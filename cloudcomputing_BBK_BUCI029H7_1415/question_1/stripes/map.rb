@@ -27,13 +27,13 @@ paragraphs.each do |text|
   begin
   words = text.gsub!(/[^0-9a-z ]/i, ' ')
   rescue NoMethodError => ex
-    print "Exception: #{ex} hit on the following words: "
+    puts "Exception: #{ex} hit on the following words: "
     splitted = words.split(" ")
   rescue NoMethodError => ex
-    print "Exception: #{ex} hit on the following words: "
+    puts "Exception: #{ex} hit on the following words: "
   paragraph = splitted.map!{ |w| w.downcase}
   rescue NoMethodError => ex
-    print "Exception: #{ex} hit on the following words: "
+    puts "Exception: #{ex} hit on the following words: "
   else 
   end
 

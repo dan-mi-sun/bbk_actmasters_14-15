@@ -28,9 +28,15 @@ paragraphs.each do |text|
   words = text.gsub!(/[^0-9a-z ]/i, ' ')
   rescue NoMethodError => ex
     puts "Exception: #{ex.message} hit on the following words: #{words}"
+  end
+
+  begin
     splitted = words.split(" ")
   rescue NoMethodError => ex
     puts "Exception: #{ex.message} hit on the following words: #{words}"
+  end
+
+  begin
   rescue NoMethodError => ex
     puts "Exception: #{ex.message} hit on the following words: #{words}"
   end

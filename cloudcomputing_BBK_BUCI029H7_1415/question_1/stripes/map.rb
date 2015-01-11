@@ -1,43 +1,29 @@
 require 'pry-byebug'
 # Ruby code for Stripes method map.rb
-#
-
-#Read in text.
-# ARGF.each do |text|
-# as paragraphs and replace new line characters with " "
-# paragraphs = ARGF.each("\r\n\r\n").map{|p| p.gsub("\r\n"," ")}
+# 
+#Read in text from STDIN and set split point as paragraphs as denoted by newline
 begin
-paragraphs = ARGF.each("\r\n\r\n")
+  paragraphs = ARGF.each("\r\n\r\n")
 rescue NoMethodError => e
   puts "Exception: #{e.message} hit on the following paragraphs: #{paragraphs}"
 end
 
+#remove non alphanumeric characters and carriage returns at the end of the line
 paragraphs = paragraphs.map{|p| p.gsub("/\W|\r\n"," ")}
 
-#iterate throug the paragraphs
 paragraphs.each do |text|
-  #Test code locally
-  # f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/test-txt-files/jane-test.txt")
-
-  #0.Split text into lines 
-  # f.each_line do |text|
 
   #Create Associative Array
-  #
-  h = {}
+  associative_map = {}
+
   #split text into paragraphs and convert all words to lowercase
-  #
-  # paragraph = text.gsub!(/[^0-9a-z ]/i, '').split(" ").map!{ |w| w.downcase}
   #remove non-alphanumeric characters and create a word array
   #
-  
   begin
-  words = text.gsub!(/[^0-9a-z ]/i, ' ')
-    # words = text
+    words = text.gsub!(/[^0-9a-z ]/i, ' ')
   rescue NoMethodError => ex
     puts "Exception: #{ex.message} hit on the following words: #{text}"
     puts "Exception: #{ex.message} hit on the following words: #{text.class}"
-    
   end
 
   begin
@@ -73,33 +59,33 @@ paragraphs.each do |text|
       neighbour = word_array[i + 1] 
       #if hash has word key
       #
-      if h.has_key?(word) 
+      if associative_map.has_key?(word) 
         #and if word key has neighbour
         #
-        if h[word].has_key?(neighbour)
+        if associative_map[word].has_key?(neighbour)
           #find out current value of neighbour
           #
-          v = h[word][neighbour] 
+          v = associative_map[word][neighbour] 
           #add 1 to neighbour count
           #
-          h[word] = {neighbour => (v + 1) } 
+          associative_map[word] = {neighbour => (v + 1) } 
           #else append neighbour key & set count at 1
           #
         else 
-          h[word].merge!(neighbour => 1)
+          associative_map[word].merge!(neighbour => 1)
         end
         #else add word with {} && add neighbour key && set count at 1
         #
       else 
-        h[word] = {} && h[word] = {neighbour => 1}
+        associative_map[word] = {} && associative_map[word] = {neighbour => 1}
       end
     end
   }
   #output to STDOUT
   #<key><tab><value><newline>
   #
-  h_array = h.to_a
-  h_array.each { |pairs|
+  map_output = associative_map.to_a
+  map_output.each { |pairs|
     key = pairs[0]
     value =  pairs[1]
     puts key + "\t" + value.to_s

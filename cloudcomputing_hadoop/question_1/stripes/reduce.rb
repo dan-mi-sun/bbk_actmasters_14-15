@@ -6,25 +6,25 @@ require 'pry-byebug'
 
 #
 #Test code locally
-# f = File.open("/Users/dan_mi_sun/projects/bbk_actmasters_14-15/cloudcomputing_BBK_BUCI029H7_1415/question_1/output.txt", "r")
+f = File.open("/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/question_1/sanity_check_reduce_input.txt", "r")
 
 #create data structure within which to do internal corresponding value addition
 #
 merging_container = {}
 
-# f.each_line do |line|
+ f.each_line do |line|
 #Read in each line of text.
-ARGF.each do |line|
+# ARGF.each do |line|
 
   # remove any newline
   line = line.chomp
-  # puts "this is the line: #{line}"
+  puts "this is the line: #{line}"
 
   # split key and value on tab character
   (key, value) = line.split(/\t/)
 
-  # puts "This is key #{key}"
-  # puts "This is value #{value}"
+  puts "This is key #{key}"
+  puts "This is value #{value}"
 
   #remove non-alphanumeric chars from value string and turn into array
   a = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
@@ -35,8 +35,8 @@ ARGF.each do |line|
   #if the key already exists then append
   #
   if merging_container.has_key?(key)
-    # puts "HELLO"
-    # puts "this is the key: #{key}"
+    puts "the merging container has the key: #{key}"
+    puts "this is the key: #{key}"
 
     #set top level key for use within inner hash loop
     _key = key
@@ -44,20 +44,24 @@ ARGF.each do |line|
     #look to see if the h contains an existing inner key with an additional value 
     #
     h.each do |key, value|
-      # puts "WHY HELLO"
-      # puts "this is the key:#{key}"
-      # puts "this is the _key:#{_key}"
-      # puts "this is the value:#{value}"
+      puts "looping through inner hash of "
+      puts "this is the key:#{key}"
+      puts "this is the _key:#{_key}"
+      puts "this is the value:#{value}"
 
       if merging_container[_key].has_key?(key)
-        # puts "WHY WHY HELLO"
+        puts "if merging container with _key: #{_key} inner hash has key: #{key}"
         #if key exists in inner hash then add the value to the existing entry within the merging container
-        merging_container[_key][key] =  merging_container[_key].values.first.to_i + value.to_i
-        # puts "This is merging container #{merging_container}"
-        # puts "#{'-' *30}"
+        merging_container[_key][key] =  merging_container[_key][key].to_i + value.to_i
+        puts "This is merging container #{merging_container}"
+        puts "#{'-' *30}"
 
       else
-
+        puts "if merging container with _key: #{_key} inner hash DOES NOT HAVE key: #{key}"
+        puts "This is merging container #{merging_container}"
+        merging_container[_key].merge!(key => value)
+        puts "merging_container[_key][key]: #{merging_container[_key][key]}"
+        puts "#{'-' *30}"
       end
     end
 
@@ -65,18 +69,18 @@ ARGF.each do |line|
     #if the key does not already exist then make new entry
     #add key and values to merging container
     #
-    # puts "HELLO ELSE"
-    # puts "This is h #{h}"
+    puts "the merging container DOES NOT HAVE the key: #{key}"
+    puts "This is h #{h}"
 
     #set top level key for use within inner hash loop
     _key = key
 
     #add key value pairs to data structure
     h.each do |key, value|
-      # puts "WHY HELLO"
-      # puts "this is the key:#{key}"
-      # puts "this is the _key:#{_key}"
-      # puts "this is the value:#{value}"
+      puts "WHY HELLO"
+      puts "this is the key:#{key}"
+      puts "this is the _key:#{_key}"
+      puts "this is the value:#{value}"
       #add top level key to merging container
       #
       merging_container[_key] ||= {}
@@ -88,8 +92,8 @@ ARGF.each do |line|
       merging_container[_key].merge!(key => value)
       # merging_container[_key][key] = value
 
-      # puts "This is merging container #{merging_container}"
-      # puts "#{'-' *30}"
+      puts "This is merging container #{merging_container}"
+      puts "#{'-' *30}"
     end
   end
 end
@@ -102,10 +106,10 @@ end
 #need to climb through hash map and find all occurences
 #data structure for counting total number of w
 # w_count = {}
-# puts "this is the MC: #{merging_container}"
+puts "this is the MC: #{merging_container}"
 merging_container.each do |key, value|
   # if key == "1500"
-  # puts "#{key} is followed by:"
+  puts "#{key} is followed by:"
   _key = key
   value.each do |k, v|
     puts _key + "\t" + k + "\t" + v.to_s

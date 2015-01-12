@@ -21,18 +21,17 @@ ARGF.each do |line|
   a = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
 
   #turn values array into a hash of key value pairs
-  h = Hash[a.each_slice(2).to_a]
+  hash_map = Hash[a.each_slice(2).to_a]
 
+  #set top level key for use within inner hash loop
+  _key = key
   #if the key already exists then append
   #
   if merging_container.has_key?(key)
 
-    #set top level key for use within inner hash loop
-    _key = key
-
     #look to see if the h contains an existing inner key with an additional value 
     #
-    h.each do |key, value|
+    hash_map.each do |key, value|
 
       if merging_container[_key].has_key?(key)
         #if key exists in inner hash then add the value to the existing entry within the merging container
@@ -46,11 +45,9 @@ ARGF.each do |line|
   else
     #if the key does not already exist then make new entry
     #add key and values to merging container
-    #set top level key for use within inner hash loop
-    _key = key
 
     #add key value pairs to data structure
-    h.each do |key, value|
+    hash_map.each do |key, value|
       #add top level key to merging container
       #
       merging_container[_key] ||= {}

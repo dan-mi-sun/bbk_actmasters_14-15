@@ -14,7 +14,7 @@ ARGF.each do |line|
   values = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
 
   #turn values array into a hash of key value pairs
-  values_values_hash_map = Hash[values.each_slice(2).to_a]
+  values_hash_map = Hash[values.each_slice(2).to_a]
 
   #set top level key for use within inner hash loop
   _key = key

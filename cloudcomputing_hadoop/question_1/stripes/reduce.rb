@@ -65,9 +65,12 @@ ARGF.each do |line|
 end
 
 merging_container.each do |key, value|
-  # if key == "1500"
   _key = key
   value.each do |k, v|
     puts _key + "\t" + k + "\t" + v.to_s
   end
 end
+
+#calculate the conditional probability that a word w′ occurs immediately after another word w, i.e.,
+##Pr[w′|w] = count(w, w′)/count(w)
+##for each two-word-sequence (w,w′)

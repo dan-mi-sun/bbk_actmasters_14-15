@@ -4,7 +4,6 @@
 merging_container = {}
 
 ARGF.each do |line|
-
   # remove any newline
   line = line.chomp
 
@@ -12,17 +11,17 @@ ARGF.each do |line|
   (key, value) = line.split(/\t/)
 
   #remove non-alphanumeric chars from value string and turn into array
-  a = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
+  values = value.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
 
   #turn values array into a hash of key value pairs
-  hash_map = Hash[a.each_slice(2).to_a]
+  values_values_hash_map = Hash[values.each_slice(2).to_a]
 
   #set top level key for use within inner hash loop
   _key = key
 
   if merging_container.has_key?(key)
-    #look to see if the hash_map contains an existing inner key with an additional value 
-    hash_map.each do |key, value|
+    #look to see if the values_hash_map contains an existing inner key with an additional value 
+    values_hash_map.each do |key, value|
 
       if merging_container[_key].has_key?(key)
         #if key exists in inner hash then add the value to the existing entry within the merging container
@@ -34,7 +33,7 @@ ARGF.each do |line|
 
   else
     #if the key does not already exist then make new entry
-    hash_map.each do |key, value|
+    values_hash_map.each do |key, value|
       #add top level key to merging container
       merging_container[_key] ||= {}
 

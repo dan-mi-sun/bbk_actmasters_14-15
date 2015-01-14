@@ -1,0 +1,152 @@
+2008	{"ebook"=>1}
+5	{"2008"=>1}
+a	{"man"=>1, "distressed"=>1}
+admiration	{"and"=>1}
+affairs	{"changed"=>1}
+al	{"haines"=>1}
+almost	{"endless"=>1}
+almost	{"no"=>1}
+always	{"opened"=>1}
+amusement	{"never"=>1}
+an	{"idle"=>1, "interest"=>1}
+and	{"consolation"=>1, "respect"=>1, "contempt"=>1, "there"=>1}
+and	{"martin"=>1}
+and	{"with"=>1}
+any	{"book"=>1, "unwelcome"=>1}
+anyone	{"anywhere"=>1}
+anywhere	{"at"=>1}
+arising	{"from"=>1}
+as	{"he"=>1}
+at	{"no"=>1, "www"=>1}
+at	{"which"=>1}
+author	{"jane"=>1}
+away	{"or"=>1}
+baronetage	{"there"=>1}
+book	{"but"=>1}
+but	{"the"=>1}
+by	{"contemplating"=>1}
+by	{"jane"=>1}
+by	{"sharon"=>1, "al"=>1}
+century	{"and"=>1}
+changed	{"naturally"=>1}
+chapter	{"1"=>1}
+consolation	{"in"=>1}
+contemplating	{"the"=>1}
+contempt	{"as"=>1}
+copy	{"it"=>1}
+cost	{"and"=>1}
+could	{"read"=>1}
+creations	{"of"=>1}
+date	{"june"=>1}
+distressed	{"one"=>1}
+domestic	{"affairs"=>1}
+earliest	{"patents"=>1}
+ebook	{"105"=>1}
+ebook	{"is"=>1, "or"=>1}
+ebook	{"of"=>1}
+ebook	{"persuasion"=>1}
+elliot	{"of"=>1}
+endless	{"creations"=>1}
+every	{"other"=>1}
+faculties	{"were"=>1}
+failed	{"this"=>1}
+favourite	{"volume"=>1}
+for	{"his"=>1, "an"=>1}
+for	{"the"=>1}
+found	{"occupation"=>1}
+from	{"domestic"=>1}
+give	{"it"=>1}
+gutenberg	{"ebook"=>1}
+gutenberg	{"ebook"=>1}
+gutenberg	{"license"=>1, "net"=>1}
+hall	{"in"=>1}
+he	{"found"=>1, "turned"=>1, "could"=>1}
+his	{"own"=>2}
+history	{"with"=>1}
+hour	{"and"=>1}
+html	{"version"=>1}
+idle	{"hour"=>1}
+if	{"every"=>1}
+in	{"somersetshire"=>1, "a"=>1}
+included	{"with"=>1}
+interest	{"which"=>1}
+into	{"admiration"=>1, "pity"=>1}
+is	{"for"=>1}
+it	{"give"=>1, "away"=>1, "under"=>1}
+jane	{"austen"=>1}
+jane	{"austen"=>1}
+jane	{"austen"=>1}
+june	{"5"=>1}
+kellynch	{"hall"=>1}
+language	{"english"=>1}
+last	{"century"=>1}
+leaf	{"were"=>1}
+license	{"included"=>1}
+limited	{"remnant"=>1}
+man	{"who"=>1}
+martin	{"ward"=>1}
+may	{"copy"=>1}
+naturally	{"into"=>1}
+never	{"took"=>1, "failed"=>1}
+no	{"cost"=>1, "restrictions"=>1}
+occupation	{"for"=>1}
+of	{"anyone"=>1, "the"=>1}
+of	{"persuasion"=>1}
+of	{"the"=>2}
+of	{"this"=>1}
+one	{"there"=>1}
+online	{"at"=>1}
+or	{"re"=>1, "online"=>1}
+other	{"leaf"=>1}
+over	{"the"=>1}
+own	{"amusement"=>1, "history"=>1}
+page	{"at"=>1}
+partridge	{"and"=>1}
+patents	{"there"=>1}
+persuasion	{"by"=>1}
+pity	{"and"=>1}
+powerless	{"he"=>1}
+produced	{"by"=>1}
+project	{"gutenberg"=>1}
+project	{"gutenberg"=>1}
+project	{"gutenberg"=>1}
+re	{"use"=>1}
+read	{"his"=>1}
+release	{"date"=>1}
+remnant	{"of"=>1}
+respect	{"by"=>1}
+restrictions	{"whatsoever"=>1}
+roused	{"into"=>1}
+sensations	{"arising"=>1}
+sharon	{"partridge"=>1}
+sir	{"walter"=>1}
+somersetshire	{"was"=>1}
+start	{"of"=>1}
+terms	{"of"=>1}
+the	{"baronetage"=>1, "limited"=>1, "earliest"=>1, "almost"=>1, "last"=>1, "page"=>1, "favourite"=>1}
+the	{"project"=>1}
+the	{"use"=>1, "terms"=>1, "project"=>1}
+there	{"he"=>1, "his"=>1, "any"=>1, "if"=>1}
+this	{"ebook"=>2}
+this	{"project"=>1}
+this	{"was"=>1}
+title	{"persuasion"=>1}
+took	{"up"=>1}
+turned	{"over"=>1}
+under	{"the"=>1}
+unwelcome	{"sensations"=>1}
+up	{"any"=>1}
+use	{"of"=>1, "it"=>1}
+version	{"by"=>1}
+volume	{"always"=>1}
+walter	{"elliot"=>1}
+ward	{"html"=>1}
+was	{"a"=>1, "the"=>1}
+were	{"roused"=>1, "powerless"=>1}
+whatsoever	{"you"=>1}
+which	{"never"=>1, "the"=>1}
+who	{"for"=>1}
+with	{"almost"=>1, "this"=>1}
+with	{"an"=>1}
+www	{"gutenberg"=>1}
+you	{"may"=>1}

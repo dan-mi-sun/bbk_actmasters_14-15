@@ -1,5 +1,5 @@
 # Ruby code for Stripes method reduce.rb
-
+#
 #create data structure within which to do internal corresponding value addition
 merging_container = {}
 
@@ -61,7 +61,6 @@ merging_container.each do |key, value|
       # key_total = key_total.to_s
       w_count[key][key_total] ||= {}
       w_count[key][key_total].merge!(k => v)
-      binding.pry
       puts "this is inside the else"
     end
     prev_inner_key = key_total·

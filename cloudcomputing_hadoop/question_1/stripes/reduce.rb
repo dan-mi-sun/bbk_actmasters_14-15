@@ -43,11 +43,31 @@ ARGF.each do |line|
   end
 end
 
+w_count = {}
+key_total = 0
+
 merging_container.each do |key, value|
-  _key = key
+  key_total = 0
+  w_count[key] = {}
+  prev_inner_key = nil
   value.each do |k, v|
-    puts _key + "\t" + k + "\t" + v.to_s
+    key_total += v.to_i
+    if key_total > 1
+      #why the fuck is this not working
+      w_count[key].inject({ }){ |x, (k,v)| x[k = key_total] = v; x }
+      w_count[key][prev_inner_key].merge!(k => v)
+      puts "if the key total is bigger than 1"
+    else
+      # key_total = key_total.to_s
+      w_count[key][key_total] ||= {}
+      w_count[key][key_total].merge!(k => v)
+      binding.pry
+      puts "this is inside the else"
+    end
+    prev_inner_key = key_total·
+    puts "this is the end my freind"
   end
+  # puts _key + "\t" + k + "\t" + v.to_s
 end
 
 #calculate the conditional probability that a word w′ occurs immediately after another word w, i.e.,

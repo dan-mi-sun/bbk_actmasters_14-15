@@ -1,9 +1,15 @@
+require 'pry-byebug'
 # Ruby code for Stripes method reduce.rb
 #
 #create data structure within which to do internal corresponding value addition
 merging_container = {}
+f = File.open("/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/question_1/sorted-reducer-input.txt", "r")
+#create data structure within which to do internal corresponding value addition
+##
+#merging_container = {}
+f.each_line do |line|
 
-ARGF.each do |line|
+# ARGF.each do |line|
   # remove any newline
   line = line.chomp
 
@@ -47,26 +53,52 @@ w_count = {}
 key_total = 0
 
 merging_container.each do |key, value|
+  # puts "this is the w_count: #{w_count}"
+
   key_total = 0
   w_count[key] = {}
   prev_inner_key = nil
+
   value.each do |k, v|
+
     key_total += v.to_i
-    if key_total > 1
-      #why the fuck is this not working
-      w_count[key].inject({ }){ |x, (k,v)| x[k = key_total] = v; x }
-      w_count[key][prev_inner_key].merge!(k => v)
-      puts "if the key total is bigger than 1"
+
+    # need to input case where the first such as gutenberg is 2 then what? 
+    if key_total > 1 && prev_inner_key == nil
+      w_count[key][key_total] ||= {}
+      w_count[key][key_total].merge!(k => v)
+      # puts "if key_total > 1 && prev_inner_key == nil"
+
+    elsif key_total > 1
+      w_count[key] = w_count[key].inject({ }){ |x, (k,v)| x[k = key_total] = v; x }
+      # w_count = {w_count[key].values[0].size => w_count[key].values[0]}
+      w_count[key][key_total].merge!(k => v)
+      # puts "elsif the key total is bigger than 1"
+
     else
       # key_total = key_total.to_s
       w_count[key][key_total] ||= {}
       w_count[key][key_total].merge!(k => v)
-      puts "this is inside the else"
+      # puts "this is inside the else"
     end
-    prev_inner_key = key_total·
-    puts "this is the end my freind"
+
+    prev_inner_key = key_total
+    # puts "this is the end my freind"
   end
-  # puts _key + "\t" + k + "\t" + v.to_s
+end
+
+w_count.each do |word, hash_map|
+
+  # puts "w_count.each"
+  hash_map.each do |occurance, neighbour |
+
+    neighbour.each do |key, value|
+
+    # puts word + "\t" + occurance + "\t" + key + "\t" + value
+    puts "#{word} #{"\t"} #{occurance.to_s} #{"\t"} #{key} #{"\t"} #{value} #{"\t"} #{(value.to_f/occurance.to_i).to_s}"
+    end
+  end
+
 end
 
 #calculate the conditional probability that a word w′ occurs immediately after another word w, i.e.,

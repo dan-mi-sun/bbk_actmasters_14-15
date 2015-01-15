@@ -1,4 +1,3 @@
-require 'pry-byebug'
 # Ruby code for Stripes method map.rb
 # 
 #Read in text from STDIN and set split point as paragraphs as denoted by newline

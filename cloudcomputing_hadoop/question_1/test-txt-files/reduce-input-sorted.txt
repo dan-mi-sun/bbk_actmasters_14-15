@@ -1,4 +1,0 @@
-paragraph	{"second"=>1}
-paragraph	{"second"=>1}
-second	{"paragraph"=>2}
-second	{"paragraph"=>2}

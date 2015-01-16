@@ -81,15 +81,16 @@ end
 
 w_count.each do |word, hash_map|
 
-  hash_map.each do |occurance, neighbour |
+  if word == "for"
 
-    neighbour.each do |key, value|
+    hash_map.each do |occurance, neighbour |
 
-    if word == "for"
+      neighbour.each do |key, value|
+
       puts "#{word} #{"\t"} #{occurance.to_s} #{"\t"} #{key} #{"\t"} #{value} #{"\t"} #{(value.to_f/occurance.to_i).to_s}"
-    end
+
+      end
     end
   end
-
 end
 

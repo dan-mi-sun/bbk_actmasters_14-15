@@ -95,7 +95,7 @@ class Network
       end
     end
     # puts "#{network_map}"
-    return adjacency_list
+    return network_map
   end
 
 
@@ -111,7 +111,7 @@ class Person
 
   def import_network_map
     n = Network.new
-    network_map = n.create_map
+    network_map = n.remove_danglers
     return network_map
   end
 
@@ -135,7 +135,7 @@ class Person
       network_map[person] = data
       # puts "this is inside the map #{page_rank}"
     end
-    # puts "#{network_map}"
+    puts "#{network_map}"
     return network_map
   end
 
@@ -151,8 +151,8 @@ end
 # => removes mentions of danglers from trusts adjacency list
 # => logs total_nodes (N) - #_of_danglers
 
-# p = Person.new
-# p.set_initial_page_rank
-n = Network.new
-n.remove_danglers
+p = Person.new
+p.set_initial_page_rank
+# n = Network.new
+# n.remove_danglers
 

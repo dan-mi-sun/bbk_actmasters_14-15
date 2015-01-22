@@ -46,6 +46,33 @@ class Network
     end
     return network_map
   end
+
+  def create_danglers_library
+    #go through all people and if # is missing then add to map
+    n = Network.new
+    network_map = n.create_map
+
+    danglers_library = []
+    counter = 0
+
+    network_map.each do |person, data|
+      #each time counter is incremented and there is not a matching person_id
+      #add to the danglers_library
+      if person.to_i == counter
+        #if counter is the same as person then do nothing
+      elsif person.to_i > counter
+        #add one to the counter until level with person_id
+        until counter == (person.to_i - 1) do 
+          counter += 1
+          danglers_library << counter
+        end
+      end
+    end
+    puts "#{danglers_library}"
+    return danglers_library
+  end
+
+
 end
 
 class Person
@@ -82,7 +109,7 @@ class Person
       network_map[person] = data
       # puts "this is inside the map #{page_rank}"
     end
-    puts "#{network_map}"
+    # puts "#{network_map}"
     return network_map
   end
 
@@ -98,5 +125,8 @@ end
 # => removes mentions of danglers from trusts adjacency list
 # => logs total_nodes (N) - #_of_danglers
 
-p = Person.new
-p.set_initial_page_rank
+# p = Person.new
+# p.set_initial_page_rank
+n = Network.new
+n.create_danglers_library
+

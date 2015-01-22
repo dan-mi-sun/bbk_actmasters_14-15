@@ -97,7 +97,14 @@ class Network
     # puts "#{network_map}"
     return network_map
   end
-
+  
+  def total_active_nodes
+    # => logs total_nodes (N) - #_of_danglers
+    nodes = 3
+    danglers = Network.new.create_danglers_library.length
+    total = nodes - danglers 
+    return total
+  end
 
 end
 
@@ -149,10 +156,10 @@ end
 # => logs pagerank for person
 # => creates adjacency list of danglers
 # => removes mentions of danglers from trusts adjacency list
-# => logs total_nodes (N) - #_of_danglers
+# => logs total_nodes (N) - #_of_danglers    <------------- NOW FIGURE OUT THIS do this at the network level
 
-p = Person.new
-p.set_initial_page_rank
-# n = Network.new
-# n.remove_danglers
+# p = Person.new
+# p.set_initial_page_rank
+n = Network.new
+n.total_active_nodes
 

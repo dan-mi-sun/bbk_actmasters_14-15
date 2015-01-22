@@ -15,19 +15,32 @@ class Network
 
   def output_recommendations
     adjacency_list = {}
+    pagerank = 1
+    outlink = 1
+
     recommendation = File.open(self.test_file_path, "r")
     recommendation.each_line do |r|
       trusts = r.chomp!
       (key, value) =  trusts.split(/\t/)
+
       if adjacency_list.has_key?(key)
+        #{person-key,{PR,{#out-links,[adjacency-list]}}
         #if it has the key then add it on to the end 
+        #increase outlink counter by one
+        outlink = outlink += 1
+        temp = adjacency_list[key][pagerank]
+        #change outlink counter key
+        adjacency_list[key][pagerank] = temp.inject({ }){ |x, (k,v)| x[k = outlink] = v; x }
+        #append the destination (value) to the adjacencylist array
+        adjacency_list[key][pagerank][outlink].push(value)
+        # puts "this is the if with key #{key}"
       else
+        #{person-key,{PR,{#out-links,[adjacency-list]}}
         adjacency_list[key] ||= {}
-        #input the value here   <-----WORKING ON THIS
-        binding.pry
-        puts "this is the else"
+        adjacency_list[key].merge!(pagerank => {})
+        adjacency_list[key][pagerank].merge!(outlink => [value])
+        # puts "this is the else"
       end
-      adjacency_list = adjacency_list.merge!(key => value)
     end
     return adjacency_list
   end
@@ -60,6 +73,7 @@ end
 # => logs total_nodes (N) - #_of_danglers
 
 
+#{person-key,{PR,{#out-links,[adjacency-list]}}
 
 p = Person.new
 p.create_adjacency_list

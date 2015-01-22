@@ -1,6 +1,5 @@
 require "pry-byebug"
 
-
 class Network
 
   # attr_reader :iterations, :dampner
@@ -33,6 +32,7 @@ class Network
         network_map[key][pagerank] = temp.inject({ }){ |x, (k,v)| x[k = outlink] = v; x }
         #append the destination (value) to the adjacencylist array
         network_map[key][pagerank][outlink].push(value)
+        # binding.pry
         # puts "this is the if with key #{key}"
       else
         #{person-key,{PR,{#out-links,[adjacency-list]}}
@@ -40,13 +40,13 @@ class Network
         network_map[key] ||= {}
         network_map[key].merge!(pagerank => {})
         network_map[key][pagerank].merge!(outlink => [value])
+        # binding.pry
         # puts "this is the else"
       end
     end
     return network_map
   end
 end
-
 
 class Person
 
@@ -56,10 +56,34 @@ class Person
     # @id, @rank, @trusts, @dangler = id, rank, trusts, dangler
   end
 
-  def create_adjacency_list
+  def import_network_map
     n = Network.new
-    network_recommendations = n.output_recommendations
-    puts "this is #{network_recommendations}"
+    network_map = n.create_map
+    return network_map
+  end
+
+  def set_initial_page_rank
+    #need to intake the Network.create_map and the go through each Person
+    #this is the starting PR / #outlinks
+    p = Person.new
+    network_map = p.import_network_map
+    # puts "this is the network_map: #{network_map}"
+    network_map.each do |person, data|
+      page_rank = nil
+      # initial_pagerank = data.first[0].to_i
+      data.each do |initial_pagerank, link_data|
+        total_outlinks = link_data.first[0].to_i
+        page_rank = (initial_pagerank.to_f) / total_outlinks
+        #set new pagerank within person's data
+        # puts "this is inside the inner_map"
+      end
+      #now need to set new value within the refreshed network map
+      data = data.inject({ }){ |x, (k,v)| x[k = page_rank] = v; x }
+      network_map[person] = data
+      # puts "this is inside the map #{page_rank}"
+    end
+    puts "#{network_map}"
+    return network_map
   end
 
 end
@@ -74,4 +98,5 @@ end
 # => removes mentions of danglers from trusts adjacency list
 # => logs total_nodes (N) - #_of_danglers
 
-
+p = Person.new
+p.set_initial_page_rank

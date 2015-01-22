@@ -68,8 +68,34 @@ class Network
         end
       end
     end
-    puts "#{danglers_library}"
+    # puts "#{danglers_library}"
     return danglers_library
+  end
+
+  def remove_danglers
+    n = Network.new
+    network_map = n.create_map
+    danglers = n.create_danglers_library
+
+    #{person-key,{PR,{#out-links,[adjacency-list]}}
+    network_map.each do |person, data|
+      data.each do |pagerank, outlink_info|
+
+        adjacency_list = outlink_info.values[0]
+        #compare adjacencey_library (AL) with danglers (D)
+        #if AL contains a D remove it
+        #if AL does NOT contain a D then do nothing
+        adjacency_list.each do |recommended|
+          if danglers.include? recommended.to_i
+            network_map[person][pagerank].values[0].delete(recommended)
+          else
+            #
+          end
+        end
+      end
+    end
+    # puts "#{network_map}"
+    return adjacency_list
   end
 
 
@@ -128,5 +154,5 @@ end
 # p = Person.new
 # p.set_initial_page_rank
 n = Network.new
-n.create_danglers_library
+n.remove_danglers
 

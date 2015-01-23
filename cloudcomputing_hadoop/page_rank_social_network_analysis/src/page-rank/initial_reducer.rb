@@ -16,7 +16,7 @@ class Network
   end
 
   def test_file_path
-    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/epinions.txt"
+    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/soc-Epinions1.txt"
   end
 
   def create_map
@@ -51,22 +51,19 @@ class Network
   def create_danglers_library
     #go through all people and if # is missing then add to map
     n = Network.new
+    number_of_nodes = n.number_of_nodes.to_i
     network_map = n.create_map
 
     danglers_library = []
     counter = 0
 
-    network_map.each do |person, data|
-      #each time counter is incremented and there is not a matching person_id
-      #add to the danglers_library
-      if person.to_i == counter
-        #if counter is the same as person then do nothing
-      elsif person.to_i > counter
-        #add one to the counter until level with person_id
-        until counter == person.to_i do 
-          danglers_library << counter
-          counter += 1
-        end
+    number_of_nodes.times do |i|
+      if network_map.has_key? i.to_s
+        #do nothing
+        counter += 1
+      else
+        danglers_library << counter
+        counter += 1
       end
     end
     return danglers_library
@@ -102,6 +99,10 @@ class Network
   #   total = nodes - danglers 
   #   return total
   # end
+
+  def number_of_nodes
+    "75879"
+  end
 
   def output_network_map
     network = Network.new.remove_danglers

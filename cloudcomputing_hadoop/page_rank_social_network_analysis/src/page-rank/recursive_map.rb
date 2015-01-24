@@ -33,45 +33,14 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
     return person
   end
 
-  #this should take in the exact same as import data outputs
-  def set_intermediate_referee_pagerank
-    person = Person.new.import_person_data
+  def set_intermediate_referee_pagerank(person)
     person.pagerank = person.pagerank / person.number_of_outlinks
     return person
   end
 
-  # def set_intermediate_key_pagerank
-  #   person = Person.new.set_intermediate_referee_pagerank
-  #   al = person.adjacency_list
-  #   pr = person.pagerank
-  #   person.adjacency_list = Hash[al.map {|key| [key, pr]}]
-  #   return person
-  # end
-
-  #TODO <---- the aim is to figure out what should be the 
-  #output format for the mapper to the reducer
-
-  # def emit
-  #   #need k_1
-  #   #PR for k_1
-  #   #value from step 1
-  #   #iteration #
-  #   person = Person.new.set_intermediate_key_pagerank
-  #   al = person.adjacency_list
-  #   al.each do |id, pr|
-  #     binding.pry
-  #     puts "#{id}"
-  #
-  #   end
-  # end
-  #
-  # def output_network_map
-  #   network = Network.new.remove_danglers
-  #   network.each do |person_id, data|
-  #     puts "#{person_id} #{"\t"} #{data} #{"\t"}"
-  #   end
-  # end
-
 end
 
-p = Person.new.set_intermediate_key_pagerank
+p = Person.new
+p = p.set_intermediate_referee_pagerank(p.import_person_data)
+puts "#{p}"
+

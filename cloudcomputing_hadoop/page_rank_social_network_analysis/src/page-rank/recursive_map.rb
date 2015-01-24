@@ -51,7 +51,9 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
 
   def emit(person)
     person.each do |p|
-      puts "#{p.attributes}"
+      p.adjacency_list.each do |k|
+        puts "#{k} #{"\t"} #{p.attributes} #{"\t"}"
+      end
     end
   end
 

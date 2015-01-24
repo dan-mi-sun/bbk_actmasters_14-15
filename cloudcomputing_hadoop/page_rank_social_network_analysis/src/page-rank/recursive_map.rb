@@ -20,7 +20,8 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
       number_of_outlinks = adjacency_list.slice!(0).to_i
 
       #smell to remove any danglers from counted outlinks
-
+      #TODO <-- if this is the second round then it will be wrong need to find a 
+      #better way of doing this
       if adjacency_list.include? "nil"
         counter = Hash.new(0)
         adjacency_list.each {|value| counter[value] += 1 }
@@ -52,7 +53,9 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
   def emit(person)
     person.each do |p|
       p.adjacency_list.each do |k|
-        puts "#{k} #{"\t"} #{p.attributes} #{"\t"}"
+        if k != "nil"
+          puts "#{k} #{"\t"} #{p.attributes} #{"\t"}"
+        end
       end
     end
   end

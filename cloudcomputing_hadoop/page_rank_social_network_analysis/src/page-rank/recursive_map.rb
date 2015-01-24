@@ -9,7 +9,7 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
 
   def import_person_data
     temp = File.open(self.test_file_path, "r")
-    person = nil
+    person = []
     temp.each_line do |r|
       person_data = r.chomp!
       (person_id, data) = person_data.split(/\t/)
@@ -27,20 +27,37 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
         danglers = counter["nil"]
         number_of_outlinks = number_of_outlinks - danglers
       end
-      person = Person.new(id, page_rank, number_of_outlinks, adjacency_list )
+      person << Person.new(id, page_rank, number_of_outlinks, adjacency_list )
     end
-
     return person
   end
 
   def set_intermediate_referee_pagerank(person)
-    person.pagerank = person.pagerank / person.number_of_outlinks
-    return person
+    intermediate_pagerank = []
+    person.each do |p|
+      p.pagerank = p.pagerank / p.number_of_outlinks
+      intermediate_pagerank << p
+    end
+    return intermediate_pagerank
   end
+
+  def attributes
+    result = {}
+    members.each do |name|
+      result[name] =  self[name]
+    end
+    result
+  end
+
+  def emit(person)
+    person.each do |p|
+      puts "#{p.attributes}"
+    end
+  end
+
 
 end
 
 p = Person.new
-p = p.set_intermediate_referee_pagerank(p.import_person_data)
-puts "#{p}"
+p = p.emit(p.set_intermediate_referee_pagerank(p.import_person_data))
 

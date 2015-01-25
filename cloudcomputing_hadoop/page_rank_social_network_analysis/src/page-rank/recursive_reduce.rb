@@ -4,7 +4,7 @@ Person = Struct.new(:intermediate_id, :attributes) do
 
   #this would actually need to be input from STDIN
   def test_file_path
-    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/tap"
+    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/t4p"
   end
 
   #gathers all keys
@@ -33,7 +33,7 @@ Person = Struct.new(:intermediate_id, :attributes) do
     data.each do |d|
       if thing.has_key? d.intermediate_id
         begin
-        thing[d.intermediate_id] += d.attributes[:attributes][:pagerank]
+          thing[d.intermediate_id] += d.attributes[:attributes][:pagerank]
         rescue NoMethodError => ex
           puts "Exception: #{ex.message} hit on the following id: #{d.intermediate_id} with attribute: #{d.attributes[:pagerank]}"
         end
@@ -41,8 +41,22 @@ Person = Struct.new(:intermediate_id, :attributes) do
         thing[d.intermediate_id] = d.attributes[:attributes][:pagerank]
       end
     end
+    thing[:info] = data
     return thing
   end
+
+  def update_referer_pagerank(data)
+    set = data[:info]
+    data.each do |d|
+      set.each_with_index do |thing, i|
+        if d[0] == thing[:attributes][:id]
+          set[i][:attributes][:pagerank] = d[1]
+        end
+      end
+    end
+    return set
+  end
+
 
   def attributes
     result = {}
@@ -52,21 +66,19 @@ Person = Struct.new(:intermediate_id, :attributes) do
     result
   end
 
-  #TODO <----- need to find 
-  #update PR of the given referee withiin the attributes
-
   #TODO <------- work on this as it needs to output same form as step 1
   def emit(person)
     person.each do |p|
       binding.pry
       p.adjacency_list.each do |k|
         binding.pry
-          puts "#{k} #{"\t"} #{p.attributes} #{"\t"}"
-        end
+        puts "#{k} #{"\t"} #{p.attributes} #{"\t"}"
       end
     end
   end
+end
 
 p = Person.new
-p.emit(p.sum_pagerank(p.import_data))
+# p.emit(p.sum_pagerank(p.import_data))
 # p.sum_pagerank(p.import_data)
+p.update_referer_pagerank(p.sum_pagerank(p.import_data))

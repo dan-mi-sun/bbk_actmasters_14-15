@@ -1,22 +1,12 @@
 require "pry-byebug"
 
-#KEY:  gathers person keys
-#
-#{person_id,{PR,{#out-links,[adjacency-list]}}
-#VALUE: creates adjacency list for trusts (links-out)
-# => calculates total number of trusts for person
-# => logs pagerank for person
-# => creates adjacency list of danglers
-# => removes mentions of danglers from trusts adjacency list
-# => logs total_nodes (N) - #_of_danglers
-
 class Network
 
   def initialize
   end
 
   def test_file_path
-    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/soc-Epinions1.txt"
+    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/epinions.txt"
   end
 
   def create_map

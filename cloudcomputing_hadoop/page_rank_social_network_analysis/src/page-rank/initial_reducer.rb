@@ -1,54 +1,62 @@
 require "pry-byebug"
 
-class Network
-
-  def initialize
-  end
+Network = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list, :number_of_nodes) do
 
   def test_file_path
     "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/epinions.txt"
   end
 
   def create_map
-    network_map = {}
+    network_map = []
     pagerank = 1
-    outlink = 1
+    number_of_nodes = 75879
+    counter = 0
 
     recommendation = File.open(self.test_file_path, "r")
     recommendation.each_line do |r|
       trusts = r.chomp!
       (key, value) =  trusts.split(/\t/)
+      id = key.to_i
 
-      if network_map.has_key?(key)
-        #{person-key,{PR,{#out-links,[adjacency-list]}}
-        #if it has the key then add it on to the end increase outlink counter by one
-        outlink = outlink += 1
-        temp = network_map[key][pagerank]
-        #change outlink counter key
-        network_map[key][pagerank] = temp.inject({ }){ |x, (k,v)| x[k = outlink] = v; x }
-        #append the destination (value) to the adjacencylist array
-        network_map[key][pagerank][outlink].push(value)
-      else
+      if network_map.empty? # then set the first item
         outlink = 1
-        network_map[key] ||= {}
-        network_map[key].merge!(pagerank => {})
-        network_map[key][pagerank].merge!(outlink => [value])
+        network_map << Network.new(id, pagerank, outlink, [value.to_i], number_of_nodes)
+
+      elsif network_map[counter][:id] == id
+        network_map[counter][:number_of_outlinks] += 1
+        network_map[counter][:adjacency_list] << value.to_i
+
+      else 
+        outlink = 1
+        counter += 1
+        network_map << Network.new(id, pagerank, outlink, [value.to_i], number_of_nodes)
       end
     end
     return network_map
   end
 
-  def create_danglers_library
-    #go through all people and if # is missing then add to map
-    n = Network.new
-    number_of_nodes = n.number_of_nodes.to_i
-    network_map = n.create_map
+  def create_referers_library(data)
+    referers_library = []
+    data.each do |d|
+      if referers_library.include? d[:id]
+        #do nothing
+      else
+        referers_library << d[:id]
+      end
+    end
+    return referers_library
+  end
 
+  def create_danglers_library(data, referers)
+    # number_of_nodes = data[0][:number_of_nodes] 
+    number_of_nodes = 1000 
+    referers_library = referers
     danglers_library = []
     counter = 0
 
     number_of_nodes.times do |i|
-      if network_map.has_key? i.to_s
+
+      if referers_library.include? i
         #do nothing
         counter += 1
       else
@@ -59,27 +67,18 @@ class Network
     return danglers_library
   end
 
-  def remove_danglers
-    n = Network.new
-    network_map = n.create_map
-    danglers = n.create_danglers_library
+  def remove_danglers(data, danglers)
+    danglers = danglers
 
-    #{person-key,{PR,{#out-links,[adjacency-list]}}
-    network_map.each do |person, data|
-      data.each do |pagerank, outlink_info|
+    data.each do |d|
+      d[:adjacency_list].each_with_index do |person, i|
 
-        adjacency_list = outlink_info.values[0]
-        #compare adjacencey_library (AL) with danglers (D)
-        #if AL contains a D remove it
-        #if AL does NOT contain a D then do nothing
-        adjacency_list.each_index do |i|
-          if danglers.include? network_map[person][pagerank].values[0][i].to_i
-            network_map[person][pagerank].values[0][i] = nil
-          end
+        if danglers.include? person
+          d[:adjacency_list][i] = nil
         end
       end
     end
-    return network_map
+    return data
   end
 
   # def total_active_nodes
@@ -90,17 +89,21 @@ class Network
   #   return total
   # end
 
-  def number_of_nodes
-    "75879"
+  def attributes
+    result = {}
+    members.each do |name|
+      result[name] =  self[name]
+    end
+    result
   end
 
-  def output_network_map
-    network = Network.new.remove_danglers
-    network.each do |person_id, data|
-      puts "#{person_id} #{"\t"} #{data} #{"\t"}"
+  def emit(data)
+    data.each do |d|
+      puts "#{d.attributes}"
     end
   end
 
 end
 
-n = Network.new.output_network_map
+n = Network.new
+n.emit(n.remove_danglers(n.create_map, n.create_danglers_library(n.create_map, n.create_referers_library(n.create_map))))

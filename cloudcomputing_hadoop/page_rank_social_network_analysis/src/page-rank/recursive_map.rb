@@ -2,9 +2,8 @@ require 'pry-byebug'
 
 Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
 
-  #this would actually need to be input from STDIN
   def test_file_path
-    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/temp"
+    "/Users/dan_mi_sun/projects/msc_advanced_computing_technologies/cloudcomputing_hadoop/page_rank_social_network_analysis/src/page-rank/oipoi"
   end
 
   def import_person_data
@@ -12,31 +11,37 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
     person = []
     temp.each_line do |r|
       person_data = r.chomp!
-      (person_id, data) = person_data.split(/\t/)
+      data = person_data.split(/\t/)
+      attributes = eval(data[0])
 
-      id = person_id.to_i
-      adjacency_list = data.gsub!(/[^0-9a-z ]/i, ' ').split(' ')
-      page_rank = adjacency_list.slice!(0).to_f
-      number_of_outlinks = adjacency_list.slice!(0).to_i
+      id = attributes[:id]
+      adjacency_list = attributes[:adjacency_list]
+      page_rank = attributes[:pagerank]
+      number_of_outlinks = attributes[:number_of_outlinks]
 
-      #smell to remove any danglers from counted outlinks
-      #TODO <-- if this is the second round then it will be wrong need to find a 
-      #better way of doing this
-      if adjacency_list.include? "nil"
-        counter = Hash.new(0)
-        adjacency_list.each {|value| counter[value] += 1 }
-        danglers = counter["nil"]
-        number_of_outlinks = number_of_outlinks - danglers
-      end
       person << Person.new(id, page_rank, number_of_outlinks, adjacency_list )
     end
     return person
   end
 
+  def remove_adjacency_list_nil_counts(data)
+    counter = 0
+    data.each do |d|
+      d[:adjacency_list].each do |l|
+        if l == nil
+          counter += 1
+        end
+      end
+      d[:number_of_outlinks] = d[:number_of_outlinks] - counter 
+      counter = 0
+    end
+    return data
+  end
+
   def set_intermediate_referee_pagerank(person)
     intermediate_pagerank = []
     person.each do |p|
-      p.pagerank = p.pagerank / p.number_of_outlinks
+    p.pagerank = p.pagerank.to_f / p.number_of_outlinks
       intermediate_pagerank << p
     end
     return intermediate_pagerank
@@ -53,7 +58,7 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
   def emit(person)
     person.each do |p|
       p.adjacency_list.each do |k|
-        if k != "nil"
+        if k != nil
           puts "#{k} #{"\t"} #{p.attributes} #{"\t"}"
         end
       end
@@ -64,5 +69,4 @@ Person = Struct.new(:id, :pagerank, :number_of_outlinks, :adjacency_list) do
 end
 
 p = Person.new
-p = p.emit(p.set_intermediate_referee_pagerank(p.import_person_data))
-
+p = p.emit(p.set_intermediate_referee_pagerank(p.remove_adjacency_list_nil_counts(p.import_person_data)))
